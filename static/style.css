@@ -1,0 +1,51 @@
+:root {
+    --background-color: #292A2D;
+    --secondary-background-color: #1F1F1F;
+    --primary-text-color: white;
+    --secondary-text-color: #BDC1C6;
+    --tertiary-text-color: #4e4f50;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
+.primary {
+    color: var(--primary-text-color);
+}
+
+.secondary {
+    color: var(--secondary-text-color);
+}
+
+.no-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.story-sections {
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+    margin: 2em;
+    width: 100em;
+    max-width: 100%;
+}
+
+.stories-left, .stories-right {
+    margin: 4em;
+    display: flex;
+    flex-direction: column;
+}
+
+.story {
+    background-color: var(--secondary-background-color);
+    border-radius: 0.75em;
+    padding: 0.75em;
+    margin: 0.5em;
+}
+
+.story img {
+    border-radius: 0.75em;
+}

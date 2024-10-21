@@ -1,0 +1,41 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <title>Home</title>
+    </head>
+    <body>
+        <h1>{{ name }} - <span style="color: {{ topic_color }}">{{ topic }}</span></h1>
+        <div class="story-sections">
+            <div class="stories-left">
+            {% for story in news %}
+                {% if story.img %}
+                <div class="story">
+                    <a class="no-link" href="{{ story.link }}">
+                        <img src="{{ story.img }}">
+                        <h2>{{ story.title }}</h2>
+                        <p class="secondary">{{ story.media|replace("BBC", "BBC News") }} • {{ story.date }}{% if story.reporter %} • {{ story.reporter }}{% endif %}</p>
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+            <div class="stories-right">
+                {% for story in news %}
+                    {% if not story.img %}
+                    <div class="story">
+                        <a class="no-link" href="{{ story.link }}">
+                            <h2>{{ story.title }}</h2>
+                            <p class="secondary">{{ story.media|replace("BBC", "BBC News") }} • {{ story.date }}{% if story.reporter %} • {{ story.reporter }}{% endif %}</p>
+                        </a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <p>{{ news_keys }}</p>
+        <hr>
+        <p>{{ news[2]["reporter"] }}</p>
+    </body>
+</html>
