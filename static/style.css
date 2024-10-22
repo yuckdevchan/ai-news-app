@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 :root {
     --background-color: #292A2D;
     --secondary-background-color: #1F1F1F;
@@ -6,9 +8,16 @@
     --tertiary-text-color: #4e4f50;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-color: var(--background-color);
     color: var(--primary-text-color);
+    font-family: 'Poppins', sans-serif;
 }
 
 .primary {
@@ -24,17 +33,61 @@ body {
     color: inherit;
 }
 
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.top-section {
+    margin-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 97em;
+    max-width: 100%;
+    justify-content: space-between;
+}
+
+.top-section .left {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1.25em;
+    align-items: center;
+}
+
+.top-section .left a {
+    color: var(--secondary-text-color);
+    text-decoration: none;
+    border-bottom: 0.1em solid #565656;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+.top-section .left a:hover {
+    color: white;
+    border-bottom: 0.1em solid white;
+    transition: color 0.3s, border-bottom 0.3s;
+}
+
+#weatherText {
+    font-weight: bold;
+    font-size: 2em;
+}
+
 .story-sections {
     display: flex;
     justify-content: center;
-    gap: 3em;
-    margin: 2em;
+    margin: 1em;
     width: 100em;
     max-width: 100%;
+    border: 0.15em solid #565656;
+    border-radius: 1.25em;
 }
 
 .stories-left, .stories-right {
-    margin: 4em;
+    margin: 1em;
     display: flex;
     flex-direction: column;
 }
@@ -42,10 +95,61 @@ body {
 .story {
     background-color: var(--secondary-background-color);
     border-radius: 0.75em;
-    padding: 0.75em;
     margin: 0.5em;
+    display: flex;
+    flex-direction: row;
+    gap: 0.25em;
+    border: 0.1em solid transparent;
+    transition: background-color 0.3s, border 0.3s;
 }
 
-.story img {
+.story:hover {
+    background-color: #292929;
+    border: 0.1em solid var(--secondary-text-color);
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.story-image {
     border-radius: 0.75em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    width: 16em;
+    height: 10em;
+    object-fit: cover;
+}
+
+.story-media-icon {
+    width: 1em;
+    height: 1em;
+}
+
+.story-title {
+    font-weight: 300;
+    font-size: 1.2em;
+    margin-top: 0.5em;
+}
+
+.story-info {
+    padding-top: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.story-desc {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25em;
+    align-items: center;
+}
+
+.story-media-icon {
+    border-radius: 0.2em;
+}
+
+.story-date {
+    font-weight: bold;
 }

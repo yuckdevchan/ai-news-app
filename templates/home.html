@@ -5,37 +5,74 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <title>Home</title>
     </head>
+    <script>
+        function updateWeather() {
+          // get location from browser and then get weather from open meteo
+          navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            var response = fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m`);
+            response.then((response) => {
+              response.json().then((data) => {
+                console.log(data)
+                const temp = data.current.temperature_2m;
+                document.getElementById("weatherText").innerText = `${temp}°C`;
+              });
+            });
+          });
+        }
+        document.addEventListener("DOMContentLoaded", updateWeather);
+    </script>
     <body>
-        <h1>{{ name }} - <span style="color: {{ topic_color }}">{{ topic }}</span></h1>
-        <div class="story-sections">
-            <div class="stories-left">
-            {% for story in news %}
-                {% if story.img %}
-                <div class="story">
-                    <a class="no-link" href="{{ story.link }}">
-                        <img src="{{ story.img }}">
-                        <h2>{{ story.title }}</h2>
-                        <p class="secondary">{{ story.media|replace("BBC", "BBC News") }} • {{ story.date }}{% if story.reporter %} • {{ story.reporter }}{% endif %}</p>
-                    </a>
+        <div class="main-content">
+            <div class="top-section">
+                <div class="left">
+                    <h1>{{ name }} - <span style="color: {{ topic_color }}">{{ topic }}</span></h1>
+                    <a href="/">Headlines</a>
+                    <a href="/topic/world">World</a>
+                    <a href="/topic/technology">Technology</a>
+                    <a href="/topic/entertainment">Entertainment</a>
+                    <a href="/topic/sports">Sports</a>
+                    <a href="/topic/science">Science</a>
+                    <a href="/topic/health">Health</a>
                 </div>
-                {% endif %}
-            {% endfor %}
-            </div>
-            <div class="stories-right">
-                {% for story in news %}
-                    {% if not story.img %}
-                    <div class="story">
-                        <a class="no-link" href="{{ story.link }}">
-                            <h2>{{ story.title }}</h2>
-                            <p class="secondary">{{ story.media|replace("BBC", "BBC News") }} • {{ story.date }}{% if story.reporter %} • {{ story.reporter }}{% endif %}</p>
-                        </a>
+                <div class="right">
+                    <div class="weather">
+                        <p id="weatherText"></p>
                     </div>
+                </div>
+            </div>
+            <div class="story-sections">
+                <div class="stories-left">
+                {% for story in news %}
+                    {% if story.img %}
+                    <a class="no-link" href="{{ story.link }}">
+                        <div class="story">
+                            <img class="story-image" src="{{ story.img }}">
+                            <div class="story-info">
+                                <p class="story-title">{{ story.title }}</p>
+                                <p class="secondary story-desc">{% if story.mediaFavicon %}<img class="story-media-icon" src="{{ story.mediaFavicon }}">{% endif %}{{ story.media|replace("BBC", "BBC News") }} • <span class="story-date">{{ story.date }}</span>{% if story.reporter %} • {{ story.reporter }}{% endif %}</p>
+                            </div>
+                        </div>
+                    </a>
                     {% endif %}
                 {% endfor %}
+                </div>
+                <div class="stories-right">
+                    {% for story in news %}
+                        {% if not story.img %}
+                        <a class="no-link" href="{{ story.link }}">
+                            <div class="story">
+                                <div class="story-info">
+                                    <p class="story-title">{{ story.title }}</p>
+                                    <p class="secondary story-desc">{% if story.mediaFavicon %}<img class="story-media-icon" src="{{ story.mediaFavicon }}">{% endif %}{{ story.media|replace("BBC", "BBC News") }} • <span class="story-date">{{ story.date }}</span>{% if story.reporter %} • {{ story.reporter }}{% endif %}</p>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        <p>{{ news_keys }}</p>
-        <hr>
-        <p>{{ news[2]["reporter"] }}</p>
     </body>
 </html>
