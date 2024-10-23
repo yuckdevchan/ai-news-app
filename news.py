@@ -1,3 +1,5 @@
+from config import config
+
 import requests
 from pathlib import Path
 from GoogleNews import GoogleNews
@@ -13,9 +15,12 @@ topic_id = {
     "Health": ("CAAqJQgKIh9DQkFTRVFvSUwyMHZNR3QwTlRFU0JXVnVMVWRDS0FBUAE", "#5677FC"),
 }
 
-def get_news(topic: str) -> list:
+def get_news(topic: str, id_used: bool) -> list:
     try:
-        googlenews.set_topic(topic_id[topic][0])
+        if id_used:
+            googlenews.set_topic(topic)
+        else:
+            googlenews.set_topic(topic_id[topic][0])
     except KeyError:
         return ["Invalid topic."]
     googlenews.get_news()
@@ -23,7 +28,22 @@ def get_news(topic: str) -> list:
     for story in results:
         if story["img"] != None:
             img = story["img"]
-            img = requests.get(img).url
+            img = requests.get(img, verify=config["verify_certs"]).url
+            story["img"] = img
+        if Path(f"static/media/{story['media']}.png").exists():
+            story["mediaFavicon"] = f"/static/media/{story['media']}.png"
+        else:
+            story["mediaFavicon"] = None
+    googlenews.clear()
+    return results
+
+def search_news(query):
+    googlenews.get_news(query)
+    results = googlenews.results()[:30]
+    for story in results:
+        if story["img"] != None:
+            img = story["img"]
+            img = requests.get(img, verify=config["verify_certs"]).url
             story["img"] = img
         if Path(f"static/media/{story['media']}.png").exists():
             story["mediaFavicon"] = f"/static/media/{story['media']}.png"

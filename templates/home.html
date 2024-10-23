@@ -3,26 +3,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='time.js') }}"></script>
+        <script src="{{ url_for('static', filename='weather.js') }}"></script>
+        <script src="{{ url_for('static', filename='main.js') }}"></script>
         <title>Home</title>
     </head>
-    <script>
-        function updateWeather() {
-          // get location from browser and then get weather from open meteo
-          navigator.geolocation.getCurrentPosition((position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            var response = fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m`);
-            response.then((response) => {
-              response.json().then((data) => {
-                console.log(data)
-                const temp = data.current.temperature_2m;
-                document.getElementById("weatherText").innerText = `${temp}°C`;
-              });
-            });
-          });
-        }
-        document.addEventListener("DOMContentLoaded", updateWeather);
-    </script>
     <body>
         <div class="main-content">
             <div class="top-section">
@@ -32,11 +17,21 @@
                     <a href="/topic/world">World</a>
                     <a href="/topic/technology">Technology</a>
                     <a href="/topic/entertainment">Entertainment</a>
-                    <a href="/topic/sports">Sports</a>
-                    <a href="/topic/science">Science</a>
-                    <a href="/topic/health">Health</a>
+                    <!-- <a href="/topic/sports">Sports</a> -->
+                    <!-- <a href="/topic/science">Science</a> -->
+                    <!-- <a href="/topic/health">Health</a> -->
                 </div>
                 <div class="right">
+                    <div class="search">
+                        <form action="/search" class="search-form">
+                            <input class="search-bar" type="text" id="q" name="q" placeholder="Search for a story..."{% if query %} value="{{ query }}"{% endif %}></input>
+                            <!-- <input class="search-button" type="submit" value=""></input> -->
+                            <button class="search-button" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0-14 0m18 11l-6-6"/></svg></button>
+                        </form>
+                    </div>
+                    <div class="time">
+                        <p id="timeText"></p>
+                    </div>
                     <div class="weather">
                         <p id="weatherText"></p>
                     </div>

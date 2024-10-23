@@ -38,6 +38,9 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    box-sizing: border-box;
+    padding-left: 5em;
+    padding-right: 5em;
 }
 
 .top-section {
@@ -58,6 +61,14 @@ body {
     align-items: center;
 }
 
+.top-section .right {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1.25em;
+    align-items: center;
+}
+
 .top-section .left a {
     color: var(--secondary-text-color);
     text-decoration: none;
@@ -71,8 +82,55 @@ body {
     transition: color 0.3s, border-bottom 0.3s;
 }
 
+.search-form {
+    display: flex;
+}
+
+.search-bar {
+    background-color: var(--background-color);
+    border: 0.2em solid var(--tertiary-text-color);
+    color: var(--primary-text-color);
+    border-radius: 0.75em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 1em;
+    font-family: "Poppins", sans-serif;
+    transition: border 0.3s;
+}
+
+.search-bar:focus {
+    outline: none;
+    border: 0.2em solid #0091ec;
+    transition: border 0.3s;
+}
+
+.search-button {
+    background-color: var(--background-color);
+    border: 0.2em solid var(--tertiary-text-color);
+    border-left: none;
+    color: var(--primary-text-color);
+    border-radius: 0.75em;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 1em;
+    font-family: "Poppins", sans-serif;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: var(--tertiary-text-color);
+    transition: background-color 0.3s;
+}
+
 #weatherText {
     font-weight: bold;
+    font-size: 2em;
+}
+
+#timeText {
+    font-weight: 300;
     font-size: 2em;
 }
 
@@ -101,6 +159,8 @@ body {
     gap: 0.25em;
     border: 0.1em solid transparent;
     transition: background-color 0.3s, border 0.3s;
+    width: 40em;
+    max-width: 100%;
 }
 
 .story:hover {
@@ -114,7 +174,7 @@ body {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     width: 16em;
-    height: 10em;
+    height: 100%;
     object-fit: cover;
 }
 
